@@ -3,7 +3,9 @@
 
 ## Unlock Backdoor
 
-1. Using UniFlash to change the value at address `0x27FFD7` to `0xF3FFFFFF` 
+When you first got the CC2538DK, it is in the ship mode(locked out), The bootloader will be normally executed directly after reset, if there is no valid image exists in the flash. If you want to flash your own firmware, you need to unlock the backdoor first.
+
+1. Using [Ti Flash Programmer](https://www.ti.com/tool/download/FLASH-PROGRAMMER-2/1.8.0) to change the value at address `0x27FFD7` to `0xF3FFFFFF` 
 2. Holding down the `select` button while pushing the `EM reste` button before flash
 
 ## Serial Driver 
