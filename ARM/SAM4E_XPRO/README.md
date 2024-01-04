@@ -1,10 +1,46 @@
 # SAM4E_XPRO
 
-Install the zephyr SDK firstly can save you as many time as possible 
+## Overview
+
+The SAM4E Xplained Pro evaluation kit is a development platform to evaluate the Atmel SAM4E series microcontrollers.
+
+![sam4e_xpro](https://docs.zephyrproject.org/latest/_images/sam4e_xpro.jpg)
+
+> Install the zephyr SDK firstly can save you as many time as possible 
+
+## Hardware
+
+| MCU              | CC2538SF53                                                   |
+| ---------------- | ------------------------------------------------------------ |
+| Family           | ARM Cortex-M4F                                               |
+| Vendor           | Atmel                                                        |
+| SRAM             | 2*512k                                                       |
+| FLASH            | 2Gb NAND                                                     |
+| User Guide       | [Microchip](http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-42216-SAM4E-Xplained-Pro_User-Guide.pdf) |
+| Reference Manual | [DataSheet](https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ProductDocuments/DataSheets/Atmel-11157-32-bit-Cortex-M4-Microcontroller-SAM4E16-SAM4E8_Datasheet.pdf) |
+
+## Supported Features
+
+The sam4e_xpro board configuration supports the following hardware features:
+
+| Interface    | Controller | Driver/Component                   |
+| ------------ | ---------- | ---------------------------------- |
+| NVIC         | on-chip    | nested vector interrupt controller |
+| SYSTICK      | on-chip    | systick                            |
+| UART         | on-chip    | serial port                        |
+| USART        | on-chip    | serial port                        |
+| I2C          | on-chip    | i2c                                |
+| SPI          | on-chip    | spi                                |
+| ETHERNET     | on-chip    | ethernet                           |
+| WATCHDOG     | on-chip    | watchdog                           |
+| GPIO         | on-chip    | gpio                               |
+| IEEE802.15.4 | off-chip   | rf2xx over SPI                     |
+
+The default configuration can be found in the Kconfig [boards/arm/sam4e_xpro/sam4e_xpro_defconfig](https://github.com/zephyrproject-rtos/zephyr/blob/main/boards/arm/sam4e_xpro/sam4e_xpro_defconfig).
 
 ## SHIELDS
 
-the [shields](https://docs.zephyrproject.org/latest/boards/shields/atmel_rf2xx/doc/index.html) can be used to activate IEEE802.15.4 module.
+The sam4e_xpro board can be expanded by utilizing the `EXTENSION HEADERs` via the **SPI** protocol. For example, the [shields](https://docs.zephyrproject.org/latest/boards/shields/atmel_rf2xx/doc/index.html) that contains an IEEE802.15.4 module. To activate the module, simply plug it into any of the three extension headers and include the necessary compilation options in Zephyr
 
 ## Flash
 
@@ -29,4 +65,5 @@ Same as last section. The following shell command can be used to start a GDB ser
 - [zephyr-SAM4E-xpro](https://docs.zephyrproject.org/latest/boards/arm/sam4e_xpro/doc/index.html)
 - [zephyr-shields](https://docs.zephyrproject.org/latest/boards/shields/atmel_rf2xx/doc/index.html)
 - [AT86RF233](https://www.microchip.com/en-us/development-tool/ATREB233-XPRO)
+- [Microchip-sam4e_xpro](https://www.microchip.com/en-us/development-tool/atsam4e-xpro#)
 
