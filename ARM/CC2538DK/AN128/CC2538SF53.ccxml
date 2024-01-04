@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<configurations XML_version="1.2" id="configurations_0">
+    
+
+
+
+
+
+<configuration XML_version="1.2" id="Texas Instruments XDS100v3 USB Emulator_0">
+        <instance XML_version="1.2" desc="Texas Instruments XDS100v3 USB Emulator_0" href="connections/TIXDS100v3_Dot7_Connection.xml" id="Texas Instruments XDS100v3 USB Emulator_0" xml="TIXDS100v3_Dot7_Connection.xml" xmlpath="connections"/>
+        <connection XML_version="1.2" id="Texas Instruments XDS100v3 USB Emulator_0">
+            <instance XML_version="1.2" href="drivers/tixds100v2icepick_c.xml" id="drivers" xml="tixds100v2icepick_c.xml" xmlpath="drivers"/>
+            <instance XML_version="1.2" href="drivers/tixds100v2cs_dap.xml" id="drivers" xml="tixds100v2cs_dap.xml" xmlpath="drivers"/>
+            <instance XML_version="1.2" href="drivers/tixds100v2cortexM.xml" id="drivers" xml="tixds100v2cortexM.xml" xmlpath="drivers"/>
+            <property Type="choicelist" Value="2" id="The Converter Usage">
+                <choice Name="Generate 1149.7 2-pin advanced modes" value="enable">
+                    <property Type="choicelist" Value="1" id="The Converter 1149.7 Frequency">
+                        <choice Name="Overclock with user specified value" value="unused">
+                            <property Type="choicelist" Value="5" id="-- Choose a value from 1.0MHz to 50.0MHz"/>
+                        </choice>
+                    </property>
+                    <property Type="choicelist" Value="5" id="The Target Scan Format"/>
+                </choice>
+            </property>
+            <platform XML_version="1.2" id="platform_0">
+                <instance XML_version="1.2" desc="CC2538_0" href="devices/cc2538sf53.xml" id="CC2538_0" xml="cc2538sf53.xml" xmlpath="devices"/>
+            <device HW_revision="1" XML_version="1.2" description="CORTEXM3" id="CC2538_0" partnum="CC2538" simulation="no">
+                    <router HW_revision="1.0" XML_version="1.2" description="ICEPick_C Router" id="IcePick_C_0" isa="ICEPICK_C">
+                        <subpath id="subpath_0">
+                            <router HW_revision="1.0" XML_version="1.2" description="CS_DAP Router" id="CS_DAP_0" isa="CS_DAP">
+                                <subpath id="subpath_1">
+                                    <cpu HW_revision="1.0" XML_version="1.2" description="Cortex_M3 CPU" deviceSim="false" id="Cortex_M3_0" isa="Cortex_M3">
+                                        <property Type="filepathfield" Value="" id="GEL File"/>
+                                    </cpu>
+                                </subpath>
+                            </router>
+                        </subpath>
+                    <property Type="filepathfield" Value="..\..\emulation\gel\cc2538_icepick.gel" id="GEL File"/>
+                    </router>
+                </device>
+            </platform>
+        </connection>
+    </configuration>
+</configurations>

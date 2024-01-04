@@ -1,5 +1,32 @@
 # CC2538DK
 
+The [CC2538DK](http://www.ti.com/tool/cc2538dk) is Texas Instruments' developer kit for the CC2538 SoC MCU, which combines an ARM Cortex-M3 microcontroller with an IEEE802.15.4 radio.
+
+## Overview
+
+* **CC2538:** 32-bit Arm Cortex-M3 Zigbee, 6LoWPAN, and IEEE 802.15.4 wireless MCU with 512kB Flash and 32kB RAM
+
+![cc2538dk](http://www.ti.com/diagrams/cc2538dk_cc2538dk_web_1.jpg)
+
+
+
+| MCU              | CC2538SF53                                               |
+| ---------------- | -------------------------------------------------------- |
+| Family           | ARM Cortex-M3                                            |
+| Vendor           | Texas Instruments                                        |
+| RAM              | 32KiB                                                    |
+| Flash            | 512KiB                                                   |
+| Frequency        | 32MHz                                                    |
+| FPU              | no                                                       |
+| Timers           | 4                                                        |
+| ADCs             | 1x 12-bit (8 channels)                                   |
+| UARTs            | 2                                                        |
+| SPIs             | 2                                                        |
+| I2Cs             | 1                                                        |
+| Vcc              | 2V - 3.6V                                                |
+| Datasheet        | [Datasheet](http://www.ti.com/lit/gpn/cc2538) (pdf file) |
+| Reference Manual | [Reference Manual](http://www.ti.com/lit/pdf/swru319)    |
+
 
 ## Unlock Backdoor
 
@@ -42,7 +69,7 @@ For open source codes, using [cc2538-bsl](https://github.com/JelmerT/cc2538-bsl)
 /path/to/ti/common/uscif/gdb_agent_console /path/to/AN128/CC2538_XDS100v3c2_linux.dat
 ```
 
-## Reference 
+## References 
 
 - [cc2538-bsl](https://github.com/JelmerT/cc2538-bsl)
 - [RIOT-doc](https://doc.riot-os.org/group__boards__cc2538dk.html)
