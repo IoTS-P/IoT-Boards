@@ -69,6 +69,8 @@ For open source codes, using [cc2538-bsl](https://github.com/JelmerT/cc2538-bsl)
 /path/to/ti/common/uscif/gdb_agent_console /path/to/AN128/CC2538_XDS100v3c2_linux.dat
 ```
 
+> use JTAG instead of USB in Segger Ozone
+
 ## References 
 
 - [cc2538-bsl](https://github.com/JelmerT/cc2538-bsl)
