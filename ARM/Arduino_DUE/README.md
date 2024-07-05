@@ -71,29 +71,29 @@ git clone https://github.com/shumatech/BOSSA.git
 cd BOSSA
 ```
 
-2. Checkout the arduino branch. The code on the master branch does not work with Arduino Due.
-
-```shell
-git checkout arduino
-```
-
-3. Build the command line version of the bossa tool.
+2. Build the command line version of the bossa tool.
 
 ```shell
 make bin/bossac
 ```
 
-4. The resulting binary is available at bin/bossac.
+3. The resulting binary is available at bin/bossac.
 
 ### Flashing 
 
-1. Reset the configuration of the serial port 
+1. reset arduino due to 1200 baud rate
+
+```shell
+bossac -a
+```
+
+2. Reset the configuration of the serial port 
 
 ```shell
 stty -F </dev/ttyACM0> raw ispeed 115200 ospeed 115200 cs8 -cstopb ignpar eol 255 eof 255
 ```
 
-2. flash the firmware 
+3. flash the firmware 
 
 ```shell
 bossac -p </dev/ttyACM0> -R -e -w -v -b <firmware.bin>
