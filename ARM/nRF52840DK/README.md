@@ -32,7 +32,9 @@ Other hardware features have not been enabled yet for this board. See [nRF52840 
 
 ## Flash
 
-get your board id
+If multiple NRF52 is connected to your device, use --snr to specify the id, otherwise just execute every following commands end at `-f NRF52`
+
+get your boards id
 
 ```shell
 nrfjprog --ids

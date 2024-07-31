@@ -33,7 +33,7 @@ The [CC2538DK](http://www.ti.com/tool/cc2538dk) is Texas Instruments' developer 
 When you first got the CC2538DK, it is in the ship mode(locked out), The bootloader will be normally executed directly after reset, if there is no valid image exists in the flash. If you want to flash your own firmware, you need to unlock the backdoor first.
 
 1. Using [Ti Flash Programmer](https://www.ti.com/tool/download/FLASH-PROGRAMMER-2/1.8.0) to change the value at address `0x27FFD7` to `0xF3FFFFFF` 
-2. Holding down the `select` button while pushing the `EM reste` button before flash
+2. Holding down the `select` button while pushing the `EM reset` button before flash
 
 ## Serial Driver 
 
@@ -50,14 +50,21 @@ echo 0403 a6d1 > /sys/bus/usb-serial/drivers/ftdi_sio/new_id
 
 ## Flash
 
+Note: Holding down the `select` button while pushing the `EM reset` button before flash
+
 For open source codes, using [cc2538-bsl](https://github.com/JelmerT/cc2538-bsl) to flash the firmware.
 
 1. **RIOT:** `python /path/to/cc2538-bsl/cc2538-bsl.py -p "/dev/ttyUSB<x>" --write-erase -v -b 460800 /path/to/<firmware>.bin`
 
 2. **Contiki-NG:** `python /path/to/cc2538-bsl/cc2538-bsl.py -e -w -v -a 0x00202000 /path/to/<firmware>.bin`
 
+> If cc2538DK export /dev/ttyUSB0 and /dev/ttyUSB1, remember to use /dev/ttyUSB1
 
 ## Debug
+
+### XDS100v3
+
+XDS100v3 is a on-board debugger, to enable debugging without external debugger.
 
 1. download the TI GDB server/agent via [XDS simulation](http://processors.wiki.ti.com/index.php/XDS_Emulation_Software_Package) 
 2. The GDB server is in `/path/to/ti/common/uscif/gdb_agent_console[.exe]` 
@@ -69,7 +76,31 @@ For open source codes, using [cc2538-bsl](https://github.com/JelmerT/cc2538-bsl)
 /path/to/ti/common/uscif/gdb_agent_console /path/to/AN128/CC2538_XDS100v3c2_linux.dat
 ```
 
-> use JTAG instead of USB in Segger Ozone
+
+### JTAG 
+
+1. connect JLink/JTag with the J-TAG 20-pin header on the cc2538dk (SmartRF06) boards 
+
+2. open `JLinkGDBServer` in one session
+
+```shell
+JLinkGDBServer -device CC2538SF53 -endian little -if JTAG -port 2331
+```
+
+3. open gdb in another session and connect gdb server thourgh 2331 port
+
+```shell
+arm-none-eabi-gdb <firmware.elf> -ex 'target remote :2331'
+```
+
+#### Ozone
+
+Make sure use **JTAG** as target interface in Connection Settings of Ozone
+
+![Ozone Setting](../../imgs/cc2538dk-ozone.png)
+
+
+> NOTE!!! Contiki-NG use cc2538's watchdog timer by default, debugging will trigger watchdog's timeout, causing the system to reboot, so Contiki-NG can only be debugged after commenting out the watchdog code.
 
 ## References 
 
@@ -79,3 +110,5 @@ For open source codes, using [cc2538-bsl](https://github.com/JelmerT/cc2538-bsl)
 - [contiki-ng-doc](https://docs.contiki-ng.org/en/develop/doc/platforms/cc2538dk.html)
 - [Debug CC2538DK](http://embedded-funk.net/debugging-cc2538dk-demo-on-windows/)
 - [CC2538 Manual](https://www.ti.com/lit/pdf/swru319)
+
+

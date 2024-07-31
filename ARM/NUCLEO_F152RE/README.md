@@ -21,7 +21,7 @@ st-flash write <firmware.bin> 0x8000000
 1. debug server 
 
 ```shell
-/data/.local/zephyr-sdk-0.16.8/sysroots/x86_64-pokysdk-linux/usr/bin/openocd -s /data/zephyrproject/zephyr/boards/st/nucleo_l152re/support -s /data/.local/zephyr-sdk-0.16.8/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts -f /data/zephyrproject/zephyr/boards/st/nucleo_l152re/support/openocd.cfg -c 'tcl_port 6333' -c 'telnet_port 4444' -c 'gdb_port 3333' '-c init' '-c targets' '-c halt'
+openocd -s /data/zephyrproject/zephyr/boards/st/nucleo_l152re/support -s /data/.local/zephyr-sdk-0.16.8/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts -f /data/zephyrproject/zephyr/boards/st/nucleo_l152re/support/openocd.cfg -c 'tcl_port 6333' -c 'telnet_port 4444' -c 'gdb_port 3333' '-c init' '-c targets' '-c halt'
 ```
 
 2. gdb 
