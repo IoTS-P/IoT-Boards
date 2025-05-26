@@ -10,7 +10,6 @@ The arduino_due board configuration is used by Zephyr applications that run on t
 * Serial Port over USB (ATMEL_SAM3)
 
 More information about the board can be found at the [Arduino Due website](https://www.arduino.cc/en/Main/ArduinoBoardDue). The [Atmel SAM3X8E Datasheet](http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-11057-32-bit-Cortex-M3-Microcontroller-SAM3X-SAM3A_Datasheet.pdf) has the information and the datasheet about the processor.
-
 ![arduino due](https://docs.zephyrproject.org/latest/_images/arduino_due.jpg)
 
 
@@ -98,6 +97,8 @@ stty -F </dev/ttyACM0> raw ispeed 115200 ospeed 115200 cs8 -cstopb ignpar eol 25
 ```shell
 bossac -p </dev/ttyACM0> -R -e -w -v -b <firmware.bin>
 ```
+
+> Note: currently failed, recommend flash using Ozone and JTAG
 
 ## Debug
 

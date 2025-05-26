@@ -4,6 +4,8 @@ the boards which have been used
 
 # File Path
 
+*  [Debug](Debug/)
+    *  [JTrace](Debug/JTrace/)
 *  [ARM](ARM/)
     *  [SAM4E_XPRO](ARM/SAM4E_XPRO/)
     *  [CC2538DK](ARM/CC2538DK/)
