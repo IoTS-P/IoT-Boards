@@ -52,6 +52,28 @@ For example: my Zephyr-SDK is in `/data/.local/zephyr-sdk-0.16.1`, my zephyr sou
 /data/.local/zephyr-sdk-0.16.1/sysroots/x86_64-pokysdk-linux/usr/bin/openocd -s /data/zephyrproject/zephyr/boards/arm/sam4e_xpro/support -s /data/.local/zephyr-sdk-0.16.1/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts -f /data/zephyrproject/zephyr/boards/arm/sam4e_xpro/support/openocd.cfg '-c init' '-c targets' -c 'reset init' -c 'flash write_image erase </path/to>/<firmware>.hex' -c 'at91sam4 gpnvm set 1' -c 'reset run' -c shutdown
 ```
 
+When your Zephyr-SDK is in `~/zephyr-sdk-1.0.1`, and version is `1.0.1`, the command can be simplified to
+
+```shell
+/home/s/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/openocd \
+    -s /home/s/zephyrproject/zephyr/boards/atmel/sam/sam4e_xpro/support \
+    -s /home/s/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts \
+    -f /home/s/zephyrproject/zephyr/boards/atmel/sam/sam4e_xpro/support/openocd.cfg \
+    -c init' '-c targets' -c 'reset init' -c 'flash write_image erase </path/to>/<firmware>.hex' -c 'at91sam4 gpnvm set 1' -c 'reset run' -c shutdown
+```
+
+For example, if the `</path/to>/<firmware>.hex` is `~/boge/InVulAna-script/realworld/sam4/3323/zephyr-CVE-2021-3319-30-coap.hex`, the command can be simplified to
+
+```shell
+/home/s/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/openocd \
+  -s /home/s/zephyrproject/zephyr/boards/atmel/sam/sam4e_xpro/support \
+  -s /home/s/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/share/openocd/scripts \
+  -f /home/s/zephyrproject/zephyr/boards/atmel/sam/sam4e_xpro/support/openocd.cfg \
+  -c init -c targets -c 'reset init' \
+  -c 'flash write_image erase /home/s/boge/InVulAna-script/realworld/sam4/3323/zephyr-CVE-2021-3319-30-coap.hex' \
+  -c 'at91sam4 gpnvm set 1' -c 'reset run' -c shutdown
+‵‵‵
+
 ## Debug
 
 Same as last section. The following shell command can be used to start a GDB server  
