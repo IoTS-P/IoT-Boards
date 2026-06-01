@@ -1,0 +1,1 @@
+2016年1月，Microchip 收购 Atmel 公司。
