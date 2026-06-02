@@ -3,7 +3,7 @@
 ## 硬件环境
 
 - **MCU**: CC2538NF53 (512KB Flash, 32KB SRAM)
-- **调试器**: XDS100v3 (USB转串口)
+- **调试器**: JLink (需要10pin转20pin适配器)
 - **串口设备**: /dev/ttyUSB0
 
 ## 软件环境
@@ -22,11 +22,24 @@ pip install pyserial
 
 ### 2. 下载 cc2538-bsl 烧录工具
 
+下载安装最新版：
 ```bash
 git clone https://github.com/JelmerT/cc2538-bsl.git
 ```
 
+或由RIOT OS控制安装过程：参考[Generic CC2538-CC2592-DK Board](https://api.riot-os.org/group__boards__generic__cc2538__cc2592__dk.html)。该文档中文版翻译见本仓库[Generic CC2538-CC2592-DK Board](./Generic%20CC2538-CC2592-DK%20Board.md)。运行以下指令：
+
+```shell
+git clone git@github.com:RIOT-OS/RIOT.git
+cd RIOT
+cd examples/basic/hello-world
+BOARD=generic-cc2538-cc2592-dk make flash
+```
+
+
 ### 3. 设置串口权限
+
+如果遇到权限问题（如 "Permission denied: '/dev/ttyUSB0'"），可以临时或永久解决：
 
 #### 临时权限（重启后失效）
 
@@ -45,24 +58,26 @@ sudo usermod -aG dialout $USER
 groups  # 应该能看到 dialout
 ```
 
-## 固件信息
+
+
+## 测试固件信息
 
 - **操作系统**: RIOT OS 2022.07
-- **固件文件**: 24818.bin
-- **ELF文件**: 24818.elf
-- **入口点**: 0x20187d
-- **UART配置**: UART0, 115200 baud
+- **固件文件**: [hello-world.bin](./hello-world.bin)
+- **ELF文件**: [hello-world.elf](./hello-world.elf)
 
-## 烧录步骤
+## 烧录方法一：使用 cc2538-bsl 工具
 
 ### 1. 连接设备
 
-确保 XDS100v3 已连接，检查串口设备：
+确保 CC2538-CC2592-DK Board 已连接，检查串口设备：
 
 ```bash
 ls /dev/ttyUSB*
 # 应该显示 /dev/ttyUSB0
 ```
+
+![](./imgs/IMG_20260602_162807.jpg)
 
 ### 2. 进入 BSL 模式
 
@@ -72,6 +87,8 @@ CC2538 需要先进入 BSL（Bootstrap Loader）模式才能烧录：
 2. **按下 `EM reset` 按钮**（按下后立即松开）
 3. **保持 `select` 按钮按住约 1 秒**后松开
 4. 此时 CC2538 已进入 BSL 模式，在 **2 秒内**可以执行烧录命令
+
+> 进入 BSL 模式时，这块板子很可能会亮起蓝色的 LED，表示已成功进入 BSL 模式。但是如果没有亮起，或者亮起了也烧录不了，也是正常的。按照上述步骤操作即可进入 BSL 模式，如果此时还是烧录不了，通常不是这个问题，建议更换烧录方式，或者换一块板子。
 
 > ⚠️ 注意：进入 BSL 模式后需要在 2 秒内开始烧录，否则会超时退出。
 
@@ -88,7 +105,7 @@ python cc2538-bsl/cc2538_bsl/cc2538_bsl.py \
     -v \
     -p /dev/ttyUSB0 \
     -b 460800 \
-    24818.bin
+    hello-world.bin
 ```
 
 #### 参数说明
@@ -105,19 +122,36 @@ python cc2538-bsl/cc2538_bsl/cc2538_bsl.py \
 
 ```
 Opening port /dev/ttyUSB0, baud 460800
-Reading data from 24818.bin
+Reading data from /home/s/boge/IoT-Boards/Boards/TI/CC2538-CC2592-DK/hello-world.bin
 Cannot auto-detect firmware filetype: Assuming .bin
 Connecting to target...
 CC2538 PG2.0: 512KB Flash, 32KB SRAM, CCFG at 0x0027FFD4
-Primary IEEE Address: 00:12:4B:00:19:40:BB:C9
+Primary IEEE Address: 00:12:4B:00:19:40:B9:E4
     Performing mass erase
 Erasing 524288 bytes starting at address 0x00200000
     Erase done
 Writing 524288 bytes starting at address 0x00200000
 Write 16 bytes at 0x0027FFF0F8
-    Write done
+    Write done                                
 Verifying by comparing CRC32 calculations.
-    Verified (match: 0xff1a7acc)
+    Verified (match: 0xfe6325df)
+```
+
+## 烧录方法二：使用 J-Link 调试器
+
+需要连接板子上的10pin接口，所以需要一个10pin转20pin的适配器。
+
+需要检查三处连接：
+1. J-Link的USB连接电脑；
+2. J-Link的JTAG接口连接适配器的20pin接口；
+3. CC2538-CC2592-DK开发板的10pin接口接适配器的10pin接口（注意方向，板子上对应接口有一处断点的那侧，要与线的凸点的那侧保持一致；
+
+![](./imgs/IMG_20260602_185215.jpg)
+
+然后，使用以下命令烧录：
+
+```shell
+BOARD=generic-cc2538-cc2592-dk make flash PROGRAMMER=jlink
 ```
 
 ## 串口连接
@@ -135,6 +169,8 @@ screen /dev/ttyUSB0 115200
 # 使用 picocom
 picocom -b 115200 /dev/ttyUSB0
 ```
+
+![](./imgs/image.png)
 
 ### 注意事项
 
