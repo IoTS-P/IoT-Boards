@@ -1,8 +1,8 @@
-# CC2538NF53 烧录与串口连接指南
+# CC2538SF53 烧录与串口连接指南
 
 ## 硬件环境
 
-- **MCU**: CC2538NF53 (512KB Flash, 32KB SRAM)
+- **MCU**: CC2538SF53 (512KB Flash, 32KB SRAM)
 - **调试器**: JLink (需要10pin转20pin适配器)
 - **串口设备**: /dev/ttyUSB0
 
@@ -217,12 +217,3 @@ sudo usermod -aG dialout $USER
 ### Q: Cannot auto-detect firmware filetype
 
 正常提示，不影响烧录，会默认按 .bin 处理。
-
-## 文件说明
-
-| 文件 | 说明 |
-|------|------|
-| 24818.bin | 烧录用二进制固件 |
-| 24818.elf | 带调试信息的 ELF 文件 |
-| cc2538-bsl/ | BSL 烧录工具 |
-| venv/ | Python 虚拟环境 |
