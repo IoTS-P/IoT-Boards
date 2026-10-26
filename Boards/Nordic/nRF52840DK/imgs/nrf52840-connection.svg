@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 630" role="img" aria-labelledby="title desc">
+  <title id="title">nRF52840 DK J2 USB debugging and onboard radio antenna setup</title>
+  <desc id="desc">A PC connects to J2 interface MCU USB on a nRF52840 DK. Internal J-Link SWD connects to the nRF52840. The built-in PCB antenna transmits to an optional peer DK. J1 RF measurement connector and J3 target USB are not needed.</desc>
+  <rect width="1260" height="630" fill="#f5f7fb"/>
+  <text x="40" y="55" font-family="Arial,sans-serif" font-size="30" font-weight="700" fill="#172b4d">nRF52840 DK · RADIO receive / transmit setup</text>
+  <rect x="50" y="178" width="250" height="250" rx="22" fill="#dbe8ff" stroke="#3065a8" stroke-width="4"/>
+  <text x="91" y="240" font-family="Arial,sans-serif" font-size="29" font-weight="700" fill="#172b4d">PC / GDB</text>
+  <text x="91" y="290" font-family="Arial,sans-serif" font-size="21" fill="#172b4d">J-Link GDB Server</text>
+  <text x="91" y="326" font-family="Arial,sans-serif" font-size="21" fill="#172b4d">Arm GNU GDB</text>
+  <path d="M300 290 H430" fill="none" stroke="#0869bc" stroke-width="12" stroke-linecap="round"/>
+  <text x="306" y="250" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#08528b">Micro-USB data</text>
+  <rect x="430" y="122" width="500" height="400" rx="25" fill="#e7f1e8" stroke="#257a4b" stroke-width="5"/>
+  <text x="463" y="170" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="#17472d">nRF52840 DK (PCA10056)</text>
+  <rect x="465" y="220" width="195" height="225" rx="15" fill="#c5e4d1" stroke="#257a4b" stroke-width="3"/>
+  <text x="487" y="266" font-family="Arial,sans-serif" font-size="24" font-weight="700" fill="#17472d">J2 / J-Link OB</text>
+  <text x="487" y="315" font-family="Arial,sans-serif" font-size="19" fill="#17472d">Power + SWD</text>
+  <text x="487" y="353" font-family="Arial,sans-serif" font-size="19" fill="#17472d">SW6 = DEFAULT</text>
+  <text x="487" y="393" font-family="Arial,sans-serif" font-size="19" fill="#17472d">SW8 = ON</text>
+  <path d="M660 300 H710" fill="none" stroke="#257a4b" stroke-width="7"/>
+  <text x="666" y="280" font-family="Arial,sans-serif" font-size="17" fill="#17472d">SWD</text>
+  <rect x="710" y="220" width="185" height="225" rx="15" fill="#fff" stroke="#257a4b" stroke-width="3"/>
+  <text x="733" y="267" font-family="Arial,sans-serif" font-size="23" font-weight="700" fill="#17472d">nRF52840</text>
+  <text x="733" y="315" font-family="Arial,sans-serif" font-size="20" fill="#17472d">RADIO + IRQ</text>
+  <text x="733" y="355" font-family="Arial,sans-serif" font-size="20" fill="#17472d">PCB antenna</text>
+  <path d="M897 310 C960 235 995 390 1060 310" fill="none" stroke="#d6841e" stroke-width="7" stroke-dasharray="12 10"/>
+  <text x="951" y="255" font-family="Arial,sans-serif" font-size="19" font-weight="700" fill="#a25d05">2.4 GHz over air</text>
+  <rect x="1060" y="220" width="160" height="225" rx="15" fill="#fff1dc" stroke="#b87a24" stroke-width="3"/>
+  <text x="1083" y="270" font-family="Arial,sans-serif" font-size="22" font-weight="700" fill="#7b4c10">Optional peer</text>
+  <text x="1083" y="315" font-family="Arial,sans-serif" font-size="18" fill="#7b4c10">2nd DK</text>
+  <text x="1083" y="350" font-family="Arial,sans-serif" font-size="18" fill="#7b4c10">matching RF</text>
+  <text x="1083" y="385" font-family="Arial,sans-serif" font-size="18" fill="#7b4c10">configuration</text>
+  <text x="45" y="565" font-family="Arial,sans-serif" font-size="21" fill="#344b6d">Use onboard PCB antenna · J1 is RF test port · J3 is target USB · NFC antenna is unrelated</text>
+</svg>
