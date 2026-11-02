@@ -71,4 +71,4 @@ continue
 - [PowerShell GDB/MI 日志清理脚本](USART2_DMA/clean_stm32_trace.ps1)
 - [成功执行的清理日志](USART2_DMA/stm32f103_dma_trace.clean.log)
 
-包含 STM32CubeIDE 配置、PuTTY 串口输入、DMA1 Channel 6/7 事件及密码成功路径。指南内图片为操作配置示意图。
+包含 STM32CubeIDE 配置、PuTTY 串口输入、DMA1 Channel 6/7 事件及密码成功路径。指南内图 1–7 为 STM32CubeIDE 真实截图，图 8 为 PuTTY 操作配置示意图。

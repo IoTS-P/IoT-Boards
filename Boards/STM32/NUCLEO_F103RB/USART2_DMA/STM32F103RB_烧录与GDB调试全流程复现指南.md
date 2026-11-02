@@ -24,7 +24,7 @@
 
 ![NUCLEO-F103RB 板卡照片](../imgs/lab-board.png)
 
-> 文中 IDE 和 PuTTY 插图为配置示意图，用于说明操作位置与参数，并非软件界面实拍。
+> 文中图 1–7 为实验过程中保存的 STM32CubeIDE 真实截图；图 8 为 PuTTY 配置示意图。
 
 ## 1. 准备硬件与连接
 
@@ -41,7 +41,7 @@
 - 已编译 ELF：`stm32f103_usart_contiguous.elf`，使用**与调试符号匹配的 ELF**；不要为了查看源代码直接重新 Build。
 - 上游源代码：<https://github.com/fuzzware-fuzzer/gdma-experiments/tree/main/src/02-extended-test-suite/targets/STM32F103/stm32f103_usart_dma_build_dir>
 - 板卡说明：<https://github.com/IoTS-P/IoT-Boards/blob/main/Boards/STM32/NUCLEO_F103RB/README.md>
-- 教程配套文件：`stm32f103_dma_trace.gdb`（GDB 寄存器采集脚本）、`clean_stm32_trace.ps1`（日志清理脚本）、`stm32f103_dma_trace.clean.log`（成功运行示例日志）、`images/`（配置示意图）。
+- 教程配套文件：`stm32f103_dma_trace.gdb`（GDB 寄存器采集脚本）、`clean_stm32_trace.ps1`（日志清理脚本）、`stm32f103_dma_trace.clean.log`（成功运行示例日志）、`images/`（STM32CubeIDE 真实截图及 PuTTY 配置示意图）。
 
 ### 2.2 创建本地目录
 
@@ -94,9 +94,9 @@ Get-FileHash 'D:\实际路径\stm32f103_usart_contiguous.elf' -Algorithm SHA256
 | Enable live expressions | Disabled | 减少不必要的实时调试读操作 |
 | SWV | Disabled | 本流程用 GDB 断点采集，不需要 PC Sampling |
 
-![图 1：Debugger 配置](images/debugger_settings.svg)
+![图 1：Debugger 配置](images/debugger_settings.png)
 
-*图 1．Debug 会话中使用的 Debugger 配置示意图。正式采集时保持 SWV 关闭。*
+*图 1．Debug 会话中使用的 Debugger 配置截图。正式采集时保持 SWV 关闭。*
 
 **不要把 SWD Frequency 和 USART 波特率混淆**：SWD 是调试接口时钟；PuTTY 的 `115200` 才是串口波特率。
 
@@ -108,7 +108,7 @@ Get-FileHash 'D:\实际路径\stm32f103_usart_contiguous.elf' -Algorithm SHA256
 4. 保持合适的 Resume/启动选项；如 IDE 下载后停住，之后可人工按 F8。
 5. 点击 `Apply` 保存。
 
-![图 2：Startup 页面选项](images/startup_settings.svg)
+![图 2：Startup 页面选项](images/startup_settings.png)
 
 *图 2．Startup 页面，注意截图中 `Set breakpoint at main` 可能被勾选；为避免与六个脚本断点冲突，正式采集应取消该选项。*
 
@@ -117,7 +117,7 @@ Get-FileHash 'D:\实际路径\stm32f103_usart_contiguous.elf' -Algorithm SHA256
 1. 在 Debug Configurations 页面点击 **Debug**（或 IDE 工具栏的 Debug 图标）。
 2. 如弹出 `Confirm Perspective Switch`，选择 **Switch** 进入 Debug 视图。这不是报错。
 
-   ![图 3：切换 Debug 视图](images/perspective.svg)
+   ![图 3：切换 Debug 视图](images/perspective.png)
 
    *图 3．点击 Switch 进入调试视图。*
 3. 在 Console / ST-LINK GDB Server 输出中确认：
@@ -129,7 +129,7 @@ Get-FileHash 'D:\实际路径\stm32f103_usart_contiguous.elf' -Algorithm SHA256
 
    这仅证明 Flash 下载和校验成功，**不是业务测试通过**。
 
-   ![图 4：烧录完成和 Flash 校验成功](images/flash_success.svg)
+   ![图 4：烧录完成和 Flash 校验成功](images/flash_success.png)
 
    *图 4．Console 出现 `Download verified successfully` 时的界面。*
 5. 左侧 Debug 视图应出现当前 ELF、`Thread #1`、`arm-none-eabi-gdb` 和 ST-LINK GDB Server。
@@ -161,11 +161,11 @@ D:\Github\gdma-experiments\src\02-extended-test-suite\targets\STM32F103\stm32f10
 2. 点击 `Add... → File System Directory`，选择 `stm32f103_usart_dma_build_dir`，启用递归搜索（如有）；或者分别添加 `Src` 和 `Inc`。
 3. 点击 `Apply`。调试暂停时，在左侧 Debug 树展开线程/栈帧并双击 `main()`。
 4. 若仍提示 `Source not found`，使用弹窗的 `Locate File...`，手动指向 `Src\main.c`。可使用该办法打开 `main.c`。
-![图 5：源文件找不到的提示](images/source_not_found.svg)
+![图 5：源文件找不到的提示](images/source_not_found.png)
 
 *图 5．编译时的 Linux 路径 `/opt/STM32CubeF1/...` 与 Windows 源码目录不一致时出现的提示。*
 
-![图 6：成功找到本地 main.c](images/source_located.svg)
+![图 6：成功找到本地 main.c](images/source_located.png)
 
 *图 6．使用 Source Lookup/Locate File 后，已在编辑器中打开实验人员本地 `main.c`。*
 
@@ -183,7 +183,7 @@ D:\Github\gdma-experiments\src\02-extended-test-suite\targets\STM32F103\stm32f10
 
 STM32F103 的 Flash 代码断点主要使用有限的 Cortex-M3 硬件断点。之前的实验出现过 `Maximum number of supported hardware breakpoints reached`，原因是手动断点和脚本断点重复。
 
-![图 7：硬件断点数量超限](images/breakpoint_limit.svg)
+![图 7：硬件断点数量超限](images/breakpoint_limit.png)
 
 *图 7．示例硬件断点不足提示。*
 
@@ -397,7 +397,7 @@ flowchart TD
 
 ### 12.3 日志与插图文件
 
-`images/` 提供 Debugger、Startup、烧录校验、源码定位、断点错误及 PuTTY 配置等插图。`stm32f103_dma_trace.clean.log` 是完整的成功测试示例，包含六个事件的寄存器状态和调用栈。PuTTY 插图为配置示意图，串口号必须按实际 Windows 设备管理器选择。
+`images/` 提供 Debugger、Startup、烧录校验、源码定位及断点错误的真实截图，以及 PuTTY 配置示意图。`stm32f103_dma_trace.clean.log` 是完整的成功测试示例，包含六个事件的寄存器状态和调用栈。PuTTY 插图为配置示意图，串口号必须按实际 Windows 设备管理器选择。
 
 ## 13. 故障与处理
 
