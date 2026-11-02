@@ -1,0 +1,403 @@
+main () at ..\..\..\main.c:198
+warning: 198	..\..\..\main.c: No such file or directory
+Resetting target
+
+warning: could not convert '$tx_attempt' from the host encoding (CP1252) to UTF-32.
+This normally should not happen, please file a bug report.
+Breakpoint 1 at 0x20a2: file ..\..\..\main.c, line 174.
+Breakpoint 2 at 0xfc0: file ..\..\..\main.c, line 108.
+Breakpoint 3 at 0x100a: file ..\..\..\main.c, line 137.
+Breakpoint 4 at 0x4552: file ..\..\..\main.c, line 74.
+Breakpoint 5 at 0x3ce: file RTE/Device/nRF52840_xxAA/arm_startup_nrf52840.s, line 230.
+Breakpoint 6 at 0x4558: file ..\..\..\main.c, line 75.
+Breakpoint 7 at 0x455e: file ..\..\..\main.c, line 77.
+Breakpoint 8 at 0x4568: file ..\..\..\main.c, line 81.
+Breakpoint 9 at 0x4570: file ..\..\..\main.c, line 82.
+Breakpoint 10 at 0x4576: file ..\..\..\main.c, line 84.
+Breakpoint 11 at 0x4582: file ..\..\..\main.c, line 89.
+Breakpoint 12 at 0x45b8: file ..\..\..\main.c, line 95.
+Breakpoint 13 at 0x45be: file ..\..\..\main.c, line 97.
+Breakpoint 14 at 0x45ca: file ..\..\..\main.c, line 101.
+
+############ SESSION START (firmware=nrf52840_xxaa_radio_transmitter.axf) ############
+TX v2 capture initialized. Log: radio_tx_capture_v5.log
+WAIT for this banner, then press: anything pressed while the script is still loading is LOST
+  (GPIO edge arrives before 'continue', app_button sees the pin already released -> no event).
+Hold each button >200ms, release, wait ~1s, then press the next one.
+Read it like this:  [SW] what firmware wrote -> [HW] what hardware did -> [CHG] what changed.
+Press BUTTON3 on the TX board: you should see BSP_EVT_HANDLER ENTRY, then SEND_PACKET STEP 1..9.
+Log stops after STEP 5 (STATE=11 TX) only if the radio hangs; TX normally finishes within ms.
+
+========== TX MAIN ENTRY (RADIO 还是复位值) ==========
+LEGEND: 0=DISABLED 1=RXRU 2=RXIDLE 3=RX 4=RXDISABLE 9=TXRU 10=TXIDLE 11=TX 12=TXDISABLE
+        [SW ]=软件刚写了什么  [HW ]=写入后读回的硬件状态  [CHG]=与上一观察点的差异
+pc             0x20a2              0x20a2 <main+2>
+sp             0x20002898          0x20002898
+lr             0x505               1285
+xpsr           0x61000000          1627389952
+
+--- RADIO EVENTS ---
+EVENTS_READY     [0x40001100] = 0x00000000
+EVENTS_ADDRESS   [0x40001104] = 0x00000000
+EVENTS_PAYLOAD   [0x40001108] = 0x00000000
+EVENTS_END       [0x4000110c] = 0x00000000
+EVENTS_DISABLED  [0x40001110] = 0x00000000
+EVENTS_DEVMATCH  [0x40001114] = 0x00000000
+EVENTS_DEVMISS   [0x40001118] = 0x00000000
+EVENTS_RSSIEND   [0x4000111c] = 0x00000000
+EVENTS_CRCOK     [0x40001130] = 0x00000000
+EVENTS_CRCERROR  [0x40001134] = 0x00000000
+EVENTS_TXREADY   [0x40001154] = 0x00000000
+EVENTS_PHYEND    [0x4000116c] = 0x00000000
+
+--- RADIO STATUS ---
+CRCSTATUS        [0x40001400] = 0x00000000
+RXMATCH          [0x40001408] = 0x00000000
+RXCRC            [0x4000140c] = 0x00000000
+DAI              [0x40001410] = 0x00000000
+PDUSTAT          [0x40001414] = 0x00000000
+
+--- RADIO CONTROL ---
+SHORTS           [0x40001200] = 0x00000000
+INTENSET         [0x40001304] = 0x00000000
+INTENCLR         [0x40001308] = 0x00000000
+NVIC_ISER0       [0xe000e100] = 0x00000000
+
+--- RADIO CONFIGURATION ---
+PACKETPTR        [0x40001504] = 0x00000000
+FREQUENCY        [0x40001508] = 0x00000002
+TXPOWER          [0x4000150c] = 0x00000000
+MODE             [0x40001510] = 0x00000000
+PCNF0            [0x40001514] = 0x00000000
+PCNF1            [0x40001518] = 0x00000000
+BASE0            [0x4000151c] = 0x00000000
+BASE1            [0x40001520] = 0x00000000
+PREFIX0          [0x40001524] = 0x00000000
+PREFIX1          [0x40001528] = 0x00000000
+TXADDRESS        [0x4000152c] = 0x00000000
+RXADDRESSES      [0x40001530] = 0x00000000
+CRCCNF           [0x40001534] = 0x00000000
+CRCPOLY          [0x40001538] = 0x00000000
+CRCINIT          [0x4000153c] = 0x00000000
+TIFS             [0x40001544] = 0x00000000
+DATAWHITEIV      [0x40001554] = 0x00000040
+MODECNF0         [0x40001650] = 0x00000200
+STATE            [0x40001550] = 0x00000000 = 0(DISABLED)
+
+========== BSP_EVT_HANDLER ENTRY (button event) ==========
+[SW ] event code in r0 = 16   (14..21 = BSP_EVENT_KEY_0..7)
+[HW ] before: STATE=0(DISABLED), packet[0..3]=0x00000000  PACKETPTR=0x20000000
+[BTN] P0.IN=0x02041840  BTN1(P0.11)=1 BTN2(P0.12)=1 BTN3(P0.24)=0 BTN4(P0.25)=1   (0=pressed)
+
+[EVT] [SW ] pc=0x1008  packet[0..3] <- button mask (r6 = 0x00000004)
+[HW ] STATE=0(DISABLED)   (raw STATE=0x00000000)
+      EVENTS: READY=0 ADDRESS=0 PAYLOAD=0 END=0 DISABLED=0 CRCOK=0 CRCERROR=0 TXREADY=0 PHYEND=0
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=04 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] packet[0..3]   : 0x00000000  ->  0x00000004   (packet[0] = TX LENGTH if LFLEN>0, else PAYLOAD[0])
+           note: LFLEN=0 STATLEN=1 MAXLEN=1 -> ok: mask=0x04
+payload length is FIXED (STATLEN), so packet[0] is PAYLOAD[0]
+
+********************************************************************
+**** SEND_PACKET ENTRY #1  (called from main, lr=0x00002155)
+********************************************************************
+pc             0x4552              0x4552 <send_packet+2>
+sp             0x20002888          0x20002888
+lr             0x2155              8533
+r0             0x4                 4
+r1             0x6                 6
+r2             0x0                 0
+r3             0x140100            1310976
+xpsr           0x61000000          1627389952
+#0  send_packet () at ..\..\..\main.c:74
+#1  0x00002154 in main () at ..\..\..\main.c:202
+
+--- RADIO EVENTS ---
+EVENTS_READY     [0x40001100] = 0x00000000
+EVENTS_ADDRESS   [0x40001104] = 0x00000000
+EVENTS_PAYLOAD   [0x40001108] = 0x00000000
+EVENTS_END       [0x4000110c] = 0x00000000
+EVENTS_DISABLED  [0x40001110] = 0x00000000
+EVENTS_DEVMATCH  [0x40001114] = 0x00000000
+EVENTS_DEVMISS   [0x40001118] = 0x00000000
+EVENTS_RSSIEND   [0x4000111c] = 0x00000000
+EVENTS_CRCOK     [0x40001130] = 0x00000000
+EVENTS_CRCERROR  [0x40001134] = 0x00000000
+EVENTS_TXREADY   [0x40001154] = 0x00000000
+EVENTS_PHYEND    [0x4000116c] = 0x00000000
+
+--- RADIO STATUS ---
+CRCSTATUS        [0x40001400] = 0x00000000
+RXMATCH          [0x40001408] = 0x00000000
+RXCRC            [0x4000140c] = 0x00000000
+DAI              [0x40001410] = 0x00000000
+PDUSTAT          [0x40001414] = 0x00000000
+
+--- RADIO CONTROL ---
+SHORTS           [0x40001200] = 0x00000000
+INTENSET         [0x40001304] = 0x00000000
+INTENCLR         [0x40001308] = 0x00000000
+NVIC_ISER0       [0xe000e100] = 0x00020044
+
+--- RADIO CONFIGURATION ---
+PACKETPTR        [0x40001504] = 0x20000000
+FREQUENCY        [0x40001508] = 0x00000007
+TXPOWER          [0x4000150c] = 0x00000000
+MODE             [0x40001510] = 0x00000000
+PCNF0            [0x40001514] = 0x00000000
+PCNF1            [0x40001518] = 0x01040101
+BASE0            [0x4000151c] = 0x80c4a2e6
+BASE1            [0x40001520] = 0x91d5b3f7
+PREFIX0          [0x40001524] = 0xc3438303
+PREFIX1          [0x40001528] = 0xe3630023
+TXADDRESS        [0x4000152c] = 0x00000000
+RXADDRESSES      [0x40001530] = 0x00000001
+CRCCNF           [0x40001534] = 0x00000002
+CRCPOLY          [0x40001538] = 0x00011021
+CRCINIT          [0x4000153c] = 0x0000ffff
+TIFS             [0x40001544] = 0x00000000
+DATAWHITEIV      [0x40001554] = 0x00000040
+MODECNF0         [0x40001650] = 0x00000200
+STATE            [0x40001550] = 0x00000000 = 0(DISABLED)
+
+[STEP 1/9] [SW ] pc=0x4556  EVENTS_READY <- 0        (clear stale 'ramp-up done' flag)
+[HW ] STATE=0(DISABLED)   (raw STATE=0x00000000)
+      EVENTS: READY=0 ADDRESS=0 PAYLOAD=0 END=0 DISABLED=0 CRCOK=0 CRCERROR=0 TXREADY=0 PHYEND=0
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=04 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] (none) write had no effect on any RADIO state/event
+
+[STEP 2/9] [SW ] pc=0x455c  TASKS_TXEN <- 1          (0x40001000, start TX ramp-up)
+           expect: STATE 0 -> 9(TXRU) -> 10(TXIDLE), EVENTS_READY rises when ramp-up finishes
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=0 PAYLOAD=0 END=0 DISABLED=0 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=0
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=04 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] STATE          : 0(DISABLED)  ->  10(TXIDLE)
+      [CHG] EVENTS_READY   : 0  ->  1
+      [CHG] EVENTS_TXREADY : 0  ->  1
+
+[STEP 3/9] [EV ] software left the EVENTS_READY poll at 0x4560 (READY became 1)
+   0x4560 <send_packet+16>:	ldr	r0, [pc, #104]	@ (0x45cc)
+   0x4562 <send_packet+18>:	ldr	r0, [r0, #0]
+   0x4564 <send_packet+20>:	cmp	r0, #0
+   0x4566 <send_packet+22>:	beq.n	0x4560 <send_packet+16>
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=0 PAYLOAD=0 END=0 DISABLED=0 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=0
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=04 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] (none) write had no effect on any RADIO state/event
+           note: TX is only ready now; nothing has been transmitted yet.
+
+[STEP 4/9] [SW ] pc=0x456e  EVENTS_END <- 0          (clear stale 'frame done' flag)
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=0 PAYLOAD=0 END=0 DISABLED=0 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=0
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=04 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] (none) write had no effect on any RADIO state/event
+
+[STEP 5/9] [SW ] pc=0x4574  TASKS_START <- 1         (0x40001008, transmit one frame)
+           expect: STATE 10(TXIDLE) -> 11(TX)
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=0 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=04 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] EVENTS_ADDRESS : 0  ->  1
+      [CHG] EVENTS_PAYLOAD : 0  ->  1
+      [CHG] EVENTS_END     : 0  ->  1
+      [CHG] EVENTS_PHYEND  : 0  ->  1
+           NOTE: from here the CPU spins in the EVENTS_END poll at 0x4578.
+
+[STEP 6/9] [EV ] EVENTS_END poll at 0x4578 exited -> one frame transmitted
+   0x4578 <send_packet+40>:	ldr	r0, [pc, #80]	@ (0x45cc)
+   0x457a <send_packet+42>:	adds	r0, #12
+   0x457c <send_packet+44>:	ldr	r0, [r0, #0]
+   0x457e <send_packet+46>:	cmp	r0, #0
+   0x4580 <send_packet+48>:	beq.n	0x4578 <send_packet+40>
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=0 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=04 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] (none) write had no effect on any RADIO state/event
+           note: SHORTS=0x00000000, so hardware did NOT auto-disable; it fell back to 10(TXIDLE).
+
+[STEP 7/9] [SW ] pc=0x45b6  EVENTS_DISABLED <- 0     (clear stale 'radio off' flag)
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=0 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=04 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] (none) write had no effect on any RADIO state/event
+
+[STEP 8/9] [SW ] pc=0x45bc  TASKS_DISABLE <- 1       (0x40001010, power down radio)
+           expect: STATE 10(TXIDLE) -> 12(TXDISABLE) -> 0(DISABLED), EVENTS_DISABLED rises
+[HW ] STATE=0(DISABLED)   (raw STATE=0x00000000)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=04 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] STATE          : 10(TXIDLE)  ->  0(DISABLED)
+      [CHG] EVENTS_DISABLED: 0  ->  1
+
+[STEP 9/9] [RET] send_packet returns to main (lr=0x000047d5)
+[HW ] STATE=0(DISABLED)   (raw STATE=0x00000000)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=04 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] (none) write had no effect on any RADIO state/event
+           NOTE: radio is DISABLED; main will clear packet[0] and wait for the next button.
+
+========== BSP_EVT_HANDLER ENTRY (button event) ==========
+[SW ] event code in r0 = 17   (14..21 = BSP_EVENT_KEY_0..7)
+[HW ] before: STATE=0(DISABLED), packet[0..3]=0x00000000  PACKETPTR=0x20000000
+[BTN] P0.IN=0x01041840  BTN1(P0.11)=1 BTN2(P0.12)=1 BTN3(P0.24)=1 BTN4(P0.25)=0   (0=pressed)
+
+[EVT] [SW ] pc=0x1008  packet[0..3] <- button mask (r6 = 0x00000008)
+[HW ] STATE=0(DISABLED)   (raw STATE=0x00000000)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=08 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] packet[0..3]   : 0x00000000  ->  0x00000008   (packet[0] = TX LENGTH if LFLEN>0, else PAYLOAD[0])
+           note: LFLEN=0 STATLEN=1 MAXLEN=1 -> ok: mask=0x08
+payload length is FIXED (STATLEN), so packet[0] is PAYLOAD[0]
+
+********************************************************************
+**** SEND_PACKET ENTRY #2  (called from main, lr=0x00002155)
+********************************************************************
+pc             0x4552              0x4552 <send_packet+2>
+sp             0x20002888          0x20002888
+lr             0x2155              8533
+r0             0x8                 8
+r1             0xb                 11
+r2             0x0                 0
+r3             0x140100            1310976
+xpsr           0x61000000          1627389952
+#0  send_packet () at ..\..\..\main.c:74
+#1  0x00002154 in main () at ..\..\..\main.c:202
+
+--- RADIO EVENTS ---
+EVENTS_READY     [0x40001100] = 0x00000001
+EVENTS_ADDRESS   [0x40001104] = 0x00000001
+EVENTS_PAYLOAD   [0x40001108] = 0x00000001
+EVENTS_END       [0x4000110c] = 0x00000001
+EVENTS_DISABLED  [0x40001110] = 0x00000001
+EVENTS_DEVMATCH  [0x40001114] = 0x00000000
+EVENTS_DEVMISS   [0x40001118] = 0x00000000
+EVENTS_RSSIEND   [0x4000111c] = 0x00000000
+EVENTS_CRCOK     [0x40001130] = 0x00000000
+EVENTS_CRCERROR  [0x40001134] = 0x00000000
+EVENTS_TXREADY   [0x40001154] = 0x00000001
+EVENTS_PHYEND    [0x4000116c] = 0x00000001
+
+--- RADIO STATUS ---
+CRCSTATUS        [0x40001400] = 0x00000000
+RXMATCH          [0x40001408] = 0x00000000
+RXCRC            [0x4000140c] = 0x00000000
+DAI              [0x40001410] = 0x00000000
+PDUSTAT          [0x40001414] = 0x00000000
+
+--- RADIO CONTROL ---
+SHORTS           [0x40001200] = 0x00000000
+INTENSET         [0x40001304] = 0x00000000
+INTENCLR         [0x40001308] = 0x00000000
+NVIC_ISER0       [0xe000e100] = 0x00020044
+
+--- RADIO CONFIGURATION ---
+PACKETPTR        [0x40001504] = 0x20000000
+FREQUENCY        [0x40001508] = 0x00000007
+TXPOWER          [0x4000150c] = 0x00000000
+MODE             [0x40001510] = 0x00000000
+PCNF0            [0x40001514] = 0x00000000
+PCNF1            [0x40001518] = 0x01040101
+BASE0            [0x4000151c] = 0x80c4a2e6
+BASE1            [0x40001520] = 0x91d5b3f7
+PREFIX0          [0x40001524] = 0xc3438303
+PREFIX1          [0x40001528] = 0xe3630023
+TXADDRESS        [0x4000152c] = 0x00000000
+RXADDRESSES      [0x40001530] = 0x00000001
+CRCCNF           [0x40001534] = 0x00000002
+CRCPOLY          [0x40001538] = 0x00011021
+CRCINIT          [0x4000153c] = 0x0000ffff
+TIFS             [0x40001544] = 0x00000000
+DATAWHITEIV      [0x40001554] = 0x00000040
+MODECNF0         [0x40001650] = 0x00000200
+STATE            [0x40001550] = 0x00000000 = 0(DISABLED)
+
+[STEP 1/9] [SW ] pc=0x4556  EVENTS_READY <- 0        (clear stale 'ramp-up done' flag)
+[HW ] STATE=0(DISABLED)   (raw STATE=0x00000000)
+      EVENTS: READY=0 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=08 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] EVENTS_READY   : 1  ->  0
+
+[STEP 2/9] [SW ] pc=0x455c  TASKS_TXEN <- 1          (0x40001000, start TX ramp-up)
+           expect: STATE 0 -> 9(TXRU) -> 10(TXIDLE), EVENTS_READY rises when ramp-up finishes
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=08 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] STATE          : 0(DISABLED)  ->  10(TXIDLE)
+      [CHG] EVENTS_READY   : 0  ->  1
+
+[STEP 3/9] [EV ] software left the EVENTS_READY poll at 0x4560 (READY became 1)
+   0x4560 <send_packet+16>:	ldr	r0, [pc, #104]	@ (0x45cc)
+   0x4562 <send_packet+18>:	ldr	r0, [r0, #0]
+   0x4564 <send_packet+20>:	cmp	r0, #0
+   0x4566 <send_packet+22>:	beq.n	0x4560 <send_packet+16>
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=08 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] (none) write had no effect on any RADIO state/event
+           note: TX is only ready now; nothing has been transmitted yet.
+
+[STEP 4/9] [SW ] pc=0x456e  EVENTS_END <- 0          (clear stale 'frame done' flag)
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=0 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=08 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] EVENTS_END     : 1  ->  0
+
+[STEP 5/9] [SW ] pc=0x4574  TASKS_START <- 1         (0x40001008, transmit one frame)
+           expect: STATE 10(TXIDLE) -> 11(TX)
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=08 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] EVENTS_END     : 0  ->  1
+           NOTE: from here the CPU spins in the EVENTS_END poll at 0x4578.
+
+[STEP 6/9] [EV ] EVENTS_END poll at 0x4578 exited -> one frame transmitted
+   0x4578 <send_packet+40>:	ldr	r0, [pc, #80]	@ (0x45cc)
+   0x457a <send_packet+42>:	adds	r0, #12
+   0x457c <send_packet+44>:	ldr	r0, [r0, #0]
+   0x457e <send_packet+46>:	cmp	r0, #0
+   0x4580 <send_packet+48>:	beq.n	0x4578 <send_packet+40>
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=08 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] (none) write had no effect on any RADIO state/event
+           note: SHORTS=0x00000000, so hardware did NOT auto-disable; it fell back to 10(TXIDLE).
+
+[STEP 7/9] [SW ] pc=0x45b6  EVENTS_DISABLED <- 0     (clear stale 'radio off' flag)
+[HW ] STATE=10(TXIDLE)   (raw STATE=0x0000000a)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=0 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=08 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] EVENTS_DISABLED: 1  ->  0
+
+[STEP 8/9] [SW ] pc=0x45bc  TASKS_DISABLE <- 1       (0x40001010, power down radio)
+           expect: STATE 10(TXIDLE) -> 12(TXDISABLE) -> 0(DISABLED), EVENTS_DISABLED rises
+[HW ] STATE=0(DISABLED)   (raw STATE=0x00000000)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=08 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] STATE          : 10(TXIDLE)  ->  0(DISABLED)
+      [CHG] EVENTS_DISABLED: 0  ->  1
+
+[STEP 9/9] [RET] send_packet returns to main (lr=0x000047d5)
+[HW ] STATE=0(DISABLED)   (raw STATE=0x00000000)
+      EVENTS: READY=1 ADDRESS=1 PAYLOAD=1 END=1 DISABLED=1 CRCOK=0 CRCERROR=0 TXREADY=1 PHYEND=1
+      STATUS: CRCSTATUS=0 RXCRC=0x0000 PDUSTAT=0x00000000  SHORTS=0x00000000 INTENSET=0x00000000
+      PACKETPTR=0x20000000  packet[0..7]=08 00 00 00 00 00 00 00   (packet[0]=LENGTH if LFLEN>0 else PAYLOAD[0])
+      [CHG] (none) write had no effect on any RADIO state/event
+           NOTE: radio is DISABLED; main will clear packet[0] and wait for the next button.
