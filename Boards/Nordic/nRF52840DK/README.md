@@ -6,6 +6,16 @@
 
 ![nRF52840 DK 的调试 USB、板载天线及可选无线对端接线示意](imgs/nrf52840-connection.svg)
 
+## RADIO 真机复现：已完成的双板实验
+
+本实验使用两块 PCA10056，通过 J-Link Commander 将各自的 **BIN 固件**烧录至 Flash `0x00000000`，并使用匹配的 AXF 提供调试符号。两路 J-Link GDB Server 分别采用端口 `2331`、`2334` 和 `-speed 1000`，随后直接运行原版 `radio_rx_capture_v2.gdb`、`radio_tx_capture_v2.gdb` 自动采集。两份 `v5` 真机日志已经记录了 Button3（`0x04`）和 Button4（`0x08`）对应的两轮成功收发；第三轮 RX 处于正常待收状态。
+
+- [完整独立复现指南（环境准备、官方工具下载、BIN 烧录、GDB、验收）](RADIO/README.md)
+- [RX 原版 GDB 采集脚本](RADIO/radio_rx_capture_v2.gdb) / [TX 原版 GDB 采集脚本](RADIO/radio_tx_capture_v2.gdb)
+- [RX 实际采集日志](RADIO/radio_rx_capture_v5.log) / [TX 实际采集日志](RADIO/radio_tx_capture_v5.log)
+
+以下保留的其他烧录方案仅作通用参考，**以上 RADIO 复现指南才是本次真机实验的执行流程**。
+
 ## 准备什么、插哪里
 
 | 物品 | 接法与作用 |
@@ -18,14 +28,14 @@
 
 官方硬件指南确认 **J2 是接口 MCU USB**、**J3 是目标 SoC USB**，板载 J-Link 和天线也有说明：[硬件概览](https://docs.nordicsemi.com/r/bundle/ug_nrf52840_dk/page/ug/dk/intro.html)、[供电接口](https://docs.nordicsemi.com/r/bundle/ug_nrf52840_dk/page/ug/dk/hw_power_supply.html)。板上 **J1 是带开关的 SWF 射频测量口**：默认不插探头时，射频走板载 PCB 天线；插入专用探头会断开板载天线，不能把普通 SMA 天线线缆直接当作必备接线。[Nordic RF 测量说明](https://docs.nordicsemi.com/r/bundle/ug_nrf52840_dk/page/ug/dk/hw_rf_measure.html)对此有明确说明。NFC 天线只服务 NFC 测试，与本次 2.4 GHz RADIO 收发无关。
 
-## 烧录指定固件
+## 其他烧录方式（非本次 RADIO 基准流程）
 
 1. 将数据线插到 J2 和电脑，打开 SW8，保持 SW6 在 DEFAULT。用 `nrfjprog --ids` 或 J-Link Commander 确认识别到板载 J-Link 序列号；多块板同时连接时记录该号并显式选板。旧目录中的 `nrfjprog` 命令仍可使用，但 [Nordic 已将 nRF Command Line Tools 归档并转向 nRF Util](https://docs.nordicsemi.com/r/bundle/ug_nrf_cltools/page/ug/cltools/nrf_command_line_tools_lpage.html)。常规烧录**不要执行 `--recover`**，它会擦除芯片保护状态及现有内容。
 2. 在研究仓库 `examples/unit-tests/additional-tests/nRF52840/radio_receiver/` 选择 `nrf52840_xxaa_radio_receiver.axf`；发送实验则选 `radio_transmitter/nrf52840_xxaa_radio_transmitter.axf`。这两份是不同固件，改用另一份前保存前一份的日志、哈希与测量结果。`.axf` 含载入地址，适合 GDB `load`；如果只持有 `.bin`，必须确认其 Flash 起始地址后再编程，不能把裸二进制交给不知地址的工具。
 3. 最直接的 GDB 烧录方式是在电脑终端启动 J-Link GDB Server（Windows 可用 `JLinkGDBServerCL.exe`，Linux/macOS 通常为 `JLinkGDBServer`）：
 
 ```sh
-JLinkGDBServer -select USB -device nRF52840_xxAA -if SWD -speed 4000 -port 2331
+JLinkGDBServer -select USB -device nRF52840_xxAA -if SWD -speed 1000 -port 2331
 arm-none-eabi-gdb nrf52840_xxaa_radio_receiver.axf
 ```
 
@@ -46,9 +56,9 @@ continue
 
 - **TX：**烧录 transmitter AXF，在 RADIO 配置、`TASKS_TXEN`、`EVENTS_READY`、`TASKS_START`、`EVENTS_END` 等关键点停住并记录寄存器、`PACKETPTR` 缓冲区与中断。若需验证真实空中帧，用一块频点/格式匹配的接收板或合适的 2.4 GHz 仪器。电脑和被测板之间只需 J2 的 USB 调试线；不额外接射频天线。
 - **RX：**烧录 receiver AXF，启动前先准备无线对端发送**与测试固件一致**的信道、地址、包配置和时序。单块板能观察 RX 进入等待状态，却不能仅凭未收到包判定模型错误。记录 `TASKS_RXEN`、`EVENTS_READY`、`TASKS_START`、`EVENTS_END`、`CRCSTATUS`、`PACKETPTR`、IRQ 和接收缓冲区；把发送端输入及时间点一起留档。
-- 两种用例都应固定 AXF SHA-256、板号/PCB revision、J-Link ID、对端固件、调试日志和 GDB 断点。在仿真器用同一 AXF/输入重放，并按关键函数与 MMIO 读写顺序比较中间行为；**当前这份指南是上板方案，不代表已完成真实板测试**。
+- 两种用例都应固定 AXF SHA-256、板号/PCB revision、J-Link ID、对端固件、调试日志和 GDB 断点。在仿真器用同一 AXF/输入重放，并按关键函数与 MMIO 读写顺序比较中间行为；已完成的 RADIO 真机收发记录见上方两份 `v5` 日志；本文的通用 GDB `load` 示例并非本次实验采用的烧录方式。
 
-如果需要双板互发，用第二块 PCA10056 作为对端最容易固定条件；两块板各自以 Micro-USB 数据线接电脑 **J2**，各自使用板载天线。若后续证实原始 receiver/transmitter 固件的无线参数彼此不兼容，应以源码和寄存器配置为准修改对端固件，不能直接宣称二者能够互通。
+如果需要双板互发，用第二块 PCA10056 作为对端最容易固定条件；两块板各自以 Micro-USB 数据线接电脑 **J2**，各自使用板载天线。本次 `v5` 日志已经通过真实收发确认对应的 receiver/transmitter 固件能够互通；若更换固件，仍需重新核对双方射频参数。
 
 ## 参考
 
