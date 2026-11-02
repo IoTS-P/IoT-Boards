@@ -1,0 +1,234 @@
+
+===== TRACE SETUP =====
+Log: D:/stm32-trace/stm32f103_dma_trace.log
+Breakpoint 1 at 0x8000628: file ../../../../../../../../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_usart.h, line 2364.
+Note: automatically using hardware breakpoints for read-only addresses.
+Breakpoint 2 at 0x800075c: file /opt/STM32CubeF1/Projects/STM32F103RB-Nucleo/Examples_LL/USART/USART_Communication_TxRx_DMA/Src/main.c, line 368.
+Breakpoint 3 at 0x80008bc: file ../../../../../../../../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_dma.h, line 1274.
+Breakpoint 4 at 0x80008e0: file ../../../../../../../../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_ll_dma.h, line 1263.
+Breakpoint 5 at 0x8000358: file /opt/STM32CubeF1/Projects/STM32F103RB-Nucleo/Examples_LL/USART/USART_Communication_TxRx_DMA/Src/pw_check.h, line 31.
+Breakpoint 6 at 0x80002c4: file /opt/STM32CubeF1/Projects/STM32F103RB-Nucleo/Examples_LL/USART/USART_Communication_TxRx_DMA/Src/pw_check.h, line 13.
+
+TRACE INSTALLED. Run info breakpoints to verify all six.
+[TARGET OUTPUT] STM32 Successfully completed reset operation (System reset)
+Continuing.
+
+===== EVENT StartTransfers ENTER =====
+PC = 0x08000628
+SP = 0x20004ff8
+
+-- USART2 registers --
+USART2_SR   [0x40004400] = 0x000000c0
+USART2_BRR  [0x40004408] = 0x00000138
+USART2_CR1  [0x4000440C] = 0x0000200c
+USART2_CR2  [0x40004410] = 0x00000000
+USART2_CR3  [0x40004414] = 0x00000000
+
+-- DMA1 interrupt status --
+DMA1_ISR    [0x40020000] = 0x00000000
+DMA1_ISR flags: GIF6=0 TCIF6=0 HTIF6=0 TEIF6=0; GIF7=0 TCIF7=0 HTIF7=0 TEIF7=0
+
+-- DMA1 Channel 6 (USART2 RX) --
+DMA1_CCR6   [0x4002006C] = 0x0000208a
+DMA1_CNDTR6 [0x40020070] = 0x00000008
+DMA1_CPAR6  [0x40020074] = 0x40004404
+DMA1_CMAR6  [0x40020078] = 0x2000000c
+
+-- DMA1 Channel 7 (USART2 TX) --
+DMA1_CCR7   [0x40020080] = 0x0000209a
+DMA1_CNDTR7 [0x40020084] = 0x000000a7
+DMA1_CPAR7  [0x40020088] = 0x40004404
+DMA1_CMAR7  [0x4002008C] = 0x08000964
+
+-- Firmware variables --
+ubTransmissionComplete = 0
+ubReceptionComplete = 0
+num_correct = 0
+
+-- RX buffer (dma_buf) --
+dma_buf address = 0x2000000c
+0x2000000c <dma_buf>:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+
+===== EVENT WaitAndCheckEndOfTransfer ENTRY =====
+PC = 0x0800075c
+SP = 0x20004ff8
+
+-- USART2 registers --
+USART2_SR   [0x40004400] = 0x000000c0
+USART2_BRR  [0x40004408] = 0x00000138
+USART2_CR1  [0x4000440C] = 0x0000200c
+USART2_CR2  [0x40004410] = 0x00000000
+USART2_CR3  [0x40004414] = 0x000000c0
+
+-- DMA1 interrupt status --
+DMA1_ISR    [0x40020000] = 0x07000000
+DMA1_ISR flags: GIF6=0 TCIF6=0 HTIF6=0 TEIF6=0; GIF7=1 TCIF7=1 HTIF7=1 TEIF7=0
+
+-- DMA1 Channel 6 (USART2 RX) --
+DMA1_CCR6   [0x4002006C] = 0x0000208b
+DMA1_CNDTR6 [0x40020070] = 0x00000008
+DMA1_CPAR6  [0x40020074] = 0x40004404
+DMA1_CMAR6  [0x40020078] = 0x2000000c
+
+-- DMA1 Channel 7 (USART2 TX) --
+DMA1_CCR7   [0x40020080] = 0x0000209b
+DMA1_CNDTR7 [0x40020084] = 0x00000000
+DMA1_CPAR7  [0x40020088] = 0x40004404
+DMA1_CMAR7  [0x4002008C] = 0x08000964
+
+-- Firmware variables --
+ubTransmissionComplete = 0
+ubReceptionComplete = 0
+num_correct = 0
+
+-- RX buffer (dma_buf) --
+dma_buf address = 0x2000000c
+0x2000000c <dma_buf>:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+
+===== EVENT DMA1 CHANNEL7 TX IRQ ENTRY =====
+PC = 0x080008bc
+SP = 0x20004fd8
+
+-- USART2 registers --
+USART2_SR   [0x40004400] = 0x000000c0
+USART2_BRR  [0x40004408] = 0x00000138
+USART2_CR1  [0x4000440C] = 0x0000200c
+USART2_CR2  [0x40004410] = 0x00000000
+USART2_CR3  [0x40004414] = 0x000000c0
+
+-- DMA1 interrupt status --
+DMA1_ISR    [0x40020000] = 0x07000000
+DMA1_ISR flags: GIF6=0 TCIF6=0 HTIF6=0 TEIF6=0; GIF7=1 TCIF7=1 HTIF7=1 TEIF7=0
+
+-- DMA1 Channel 6 (USART2 RX) --
+DMA1_CCR6   [0x4002006C] = 0x0000208b
+DMA1_CNDTR6 [0x40020070] = 0x00000008
+DMA1_CPAR6  [0x40020074] = 0x40004404
+DMA1_CMAR6  [0x40020078] = 0x2000000c
+
+-- DMA1 Channel 7 (USART2 TX) --
+DMA1_CCR7   [0x40020080] = 0x0000209b
+DMA1_CNDTR7 [0x40020084] = 0x00000000
+DMA1_CPAR7  [0x40020088] = 0x40004404
+DMA1_CMAR7  [0x4002008C] = 0x08000964
+
+-- Firmware variables --
+ubTransmissionComplete = 0
+ubReceptionComplete = 0
+num_correct = 0
+
+-- RX buffer (dma_buf) --
+dma_buf address = 0x2000000c
+0x2000000c <dma_buf>:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+
+===== EVENT DMA1 CHANNEL6 RX IRQ ENTRY =====
+PC = 0x080008e0
+SP = 0x20004fd8
+
+-- USART2 registers --
+USART2_SR   [0x40004400] = 0x000000d0
+USART2_BRR  [0x40004408] = 0x00000138
+USART2_CR1  [0x4000440C] = 0x0000200c
+USART2_CR2  [0x40004410] = 0x00000000
+USART2_CR3  [0x40004414] = 0x000000c0
+
+-- DMA1 interrupt status --
+DMA1_ISR    [0x40020000] = 0x00700000
+DMA1_ISR flags: GIF6=1 TCIF6=1 HTIF6=1 TEIF6=0; GIF7=0 TCIF7=0 HTIF7=0 TEIF7=0
+
+-- DMA1 Channel 6 (USART2 RX) --
+DMA1_CCR6   [0x4002006C] = 0x0000208b
+DMA1_CNDTR6 [0x40020070] = 0x00000000
+DMA1_CPAR6  [0x40020074] = 0x40004404
+DMA1_CMAR6  [0x40020078] = 0x2000000c
+
+-- DMA1 Channel 7 (USART2 TX) --
+DMA1_CCR7   [0x40020080] = 0x0000209a
+DMA1_CNDTR7 [0x40020084] = 0x00000000
+DMA1_CPAR7  [0x40020088] = 0x40004404
+DMA1_CMAR7  [0x4002008C] = 0x08000964
+
+-- Firmware variables --
+ubTransmissionComplete = 1
+ubReceptionComplete = 0
+num_correct = 0
+
+-- RX buffer (dma_buf) --
+dma_buf address = 0x2000000c
+0x2000000c <dma_buf>:	0x50	0x61	0x73	0x73	0x77	0x6f	0x72	0x64
+
+===== EVENT check_password ENTRY =====
+PC = 0x08000358
+SP = 0x20004ff8
+
+-- USART2 registers --
+USART2_SR   [0x40004400] = 0x000000d0
+USART2_BRR  [0x40004408] = 0x00000138
+USART2_CR1  [0x4000440C] = 0x0000200c
+USART2_CR2  [0x40004410] = 0x00000000
+USART2_CR3  [0x40004414] = 0x000000c0
+
+-- DMA1 interrupt status --
+DMA1_ISR    [0x40020000] = 0x00000000
+DMA1_ISR flags: GIF6=0 TCIF6=0 HTIF6=0 TEIF6=0; GIF7=0 TCIF7=0 HTIF7=0 TEIF7=0
+
+-- DMA1 Channel 6 (USART2 RX) --
+DMA1_CCR6   [0x4002006C] = 0x0000208a
+DMA1_CNDTR6 [0x40020070] = 0x00000000
+DMA1_CPAR6  [0x40020074] = 0x40004404
+DMA1_CMAR6  [0x40020078] = 0x2000000c
+
+-- DMA1 Channel 7 (USART2 TX) --
+DMA1_CCR7   [0x40020080] = 0x0000209a
+DMA1_CNDTR7 [0x40020084] = 0x00000000
+DMA1_CPAR7  [0x40020088] = 0x40004404
+DMA1_CMAR7  [0x4002008C] = 0x08000964
+
+-- Firmware variables --
+ubTransmissionComplete = 1
+ubReceptionComplete = 1
+num_correct = 0
+
+-- RX buffer (dma_buf) --
+dma_buf address = 0x2000000c
+0x2000000c <dma_buf>:	0x50	0x61	0x73	0x73	0x77	0x6f	0x72	0x64
+
+===== EVENT PASSWORD MATCH SUCCESS =====
+PC = 0x080002c4
+SP = 0x20004ff8
+
+-- USART2 registers --
+USART2_SR   [0x40004400] = 0x000000d0
+USART2_BRR  [0x40004408] = 0x00000138
+USART2_CR1  [0x4000440C] = 0x0000200c
+USART2_CR2  [0x40004410] = 0x00000000
+USART2_CR3  [0x40004414] = 0x000000c0
+
+-- DMA1 interrupt status --
+DMA1_ISR    [0x40020000] = 0x00000000
+DMA1_ISR flags: GIF6=0 TCIF6=0 HTIF6=0 TEIF6=0; GIF7=0 TCIF7=0 HTIF7=0 TEIF7=0
+
+-- DMA1 Channel 6 (USART2 RX) --
+DMA1_CCR6   [0x4002006C] = 0x0000208a
+DMA1_CNDTR6 [0x40020070] = 0x00000000
+DMA1_CPAR6  [0x40020074] = 0x40004404
+DMA1_CMAR6  [0x40020078] = 0x2000000c
+
+-- DMA1 Channel 7 (USART2 TX) --
+DMA1_CCR7   [0x40020080] = 0x0000209a
+DMA1_CNDTR7 [0x40020084] = 0x00000000
+DMA1_CPAR7  [0x40020088] = 0x40004404
+DMA1_CMAR7  [0x4002008C] = 0x08000964
+
+-- Firmware variables --
+ubTransmissionComplete = 1
+ubReceptionComplete = 1
+num_correct = 8
+
+-- RX buffer (dma_buf) --
+dma_buf address = 0x2000000c
+0x2000000c <dma_buf>:	0x50	0x61	0x73	0x73	0x77	0x6f	0x72	0x64
+#0  pwcheck_success () at /opt/STM32CubeF1/Projects/STM32F103RB-Nucleo/Examples_LL/USART/USART_Communication_TxRx_DMA/Src/pw_check.h:13
+#1  0x080003b8 in check_password (buf=buf@entry=0x2000000c <dma_buf>) at /opt/STM32CubeF1/Projects/STM32F103RB-Nucleo/Examples_LL/USART/USART_Communication_TxRx_DMA/Src/pw_check.h:48
+#2  0x08000786 in WaitAndCheckEndOfTransfer () at /opt/STM32CubeF1/Projects/STM32F103RB-Nucleo/Examples_LL/USART/USART_Communication_TxRx_DMA/Src/main.c:383
+#3  0x08000846 in main () at /opt/STM32CubeF1/Projects/STM32F103RB-Nucleo/Examples_LL/USART/USART_Communication_TxRx_DMA/Src/main.c:103

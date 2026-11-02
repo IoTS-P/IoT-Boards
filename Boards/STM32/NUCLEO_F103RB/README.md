@@ -63,3 +63,12 @@ continue
 - [ST NUCLEO-F103RB 产品页](https://www.st.com/en/evaluation-tools/nucleo-f103rb.html)
 - [ST UM1724：MB1136 Nucleo-64 的 CN1、CN2、JP5、USART2 VCP 接线](https://www.st.com/resource/en/user_manual/dm00105823-stm32-nucleo-64-boards-mb1136-stmicroelectronics.pdf)
 - [ST UM2576：ST-LINK GDB server 与 GDB `load` 的行为](https://www.st.com/resource/en/user_manual/um2576-stm32cubeide-stlink-gdb-server-stmicroelectronics.pdf)
+
+## USART2 DMA 真机烧录与 GDB 采集复现
+
+- [完整烧录和调试操作指南](USART2_DMA/STM32F103RB_烧录与GDB调试全流程复现指南.md)
+- [GDB 寄存器采集脚本](USART2_DMA/stm32f103_dma_trace.gdb)
+- [PowerShell GDB/MI 日志清理脚本](USART2_DMA/clean_stm32_trace.ps1)
+- [成功执行的清理日志](USART2_DMA/stm32f103_dma_trace.clean.log)
+
+包含 STM32CubeIDE 配置、PuTTY 串口输入、DMA1 Channel 6/7 事件及密码成功路径。指南内图片为操作配置示意图。
